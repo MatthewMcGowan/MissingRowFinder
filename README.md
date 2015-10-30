@@ -4,9 +4,10 @@ Missing Row Finder or: How I Learned To Stop Worrying and Love the Garbage Colle
 This was one of my first OOP applications. It could do with some improvement, such as being generalised further, optimising, and potentially things like merging "PartitionNode" and "PartitionPair" as they really represent the same thing.
 
 ## Problem
-A common infrastructure model is to have one central database, referred to here as the Publisher, and multiple databases at various sites at company branches, referred to here as the Subscribers. The Publisher assigns ranges for the PK on a table to it's Subscribers, and with the same schema the data held at the Publisher represents the sum total of the data held at all the Subscribers.
+A common infrastructure model is to have one central database, referred to here as the Publisher, and multiple Subscriber databases with the same schema at company branches. The Publisher assigns ranges for the PK on a table to its Subscribers, and the data held at the Publisher represents the sum total of the data held at all the Subscribers. 
+[In reality in the model being used both the central and local databases act as publishers and subscribers, replicating data in both directions. In particular with this scenario the local DBs publish up to the central one; the existing name convention is nevertheless followed here and in the code.]
 
-An issue that can sometimes occur, normally after server/network issues, is that at a Subscriber one or more rows will fail to be marked for replication. The presence of these rows can be found using a simple COUNT(*); finding the Id of the missing row is non-trivial. 
+An issue that can sometimes occur, normally after server/network issues, is that at a Subscriber one or more rows will fail to be marked for replication up to the Publisher. The presence of these rows can be found using a simple COUNT(*) and seeing a discrepency between the two DBs. Finding the Id of the missing row(s), however, is non-trivial. 
 
 ## Solution
 This application queries both the Publisher and a given Subscriber, effectively performing a binary search to find the Subscriber row that does not exist at the Publisher.
