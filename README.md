@@ -1,7 +1,7 @@
 # MissingRowFinder
 Missing Row Finder or: How I Learned To Stop Worrying and Love the Garbage Collector.
 
-This was one of my first OOP applications. It could do with some improvement, such as being generalised further, optimising, and potentially things like merging "PartitionNode" and "PartitionPair" as they really represent the same thing.
+This was one of my first OOP applications.
 
 ## Problem
 A common infrastructure model is to have one central database, referred to here as the Publisher, and multiple Subscriber databases with the same schema at company branches. The Publisher assigns ranges for the PK on a table to its Subscribers, and the data held at the Publisher represents the sum total of the data held at all the Subscribers. 
