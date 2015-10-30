@@ -29,7 +29,7 @@ UPDATE Table SET BitFlagColumn = BitFlagColumn WHERE Id = {id}
 ```
 
 ## Business Layer
-The Console project and Data Access are fairly straight forward, but the Business Layer warrants explanation.
+The Console project and Data Access are fairly straight forward, but the Business Layer warrants explanation:
 
 * PartitionNodeCollection represents the "tree", it holds the first, root node.
 * PartitionNode is one node. It has one parent, and contains two child PartitionNodes: a left and a right.
