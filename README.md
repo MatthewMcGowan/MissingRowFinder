@@ -7,7 +7,7 @@ This was one of my first OOP applications.
 A common infrastructure model is to have one central database, referred to here as the Publisher, and multiple Subscriber databases with the same schema at company branches. The Publisher assigns ranges for the PK on a table to its Subscribers, and the data held at the Publisher represents the sum total of the data held at all the Subscribers. 
 [In reality in the model being used both the central and local databases act as publishers and subscribers, replicating data in both directions. In particular with this scenario the local DBs publish up to the central one; the existing name convention is nevertheless followed here and in the code.]
 
-An issue that can sometimes occur, normally after server/network issues, is that at a Subscriber one or more rows will fail to be marked for replication up to the Publisher. The presence of these rows can be found using a simple COUNT(*) and seeing a discrepency between the two DBs. Finding the Id of the missing row(s), however, is non-trivial. 
+An issue that can sometimes occur, normally after server/network issues, is that at a Subscriber one or more rows will fail to be marked for replication up to the Publisher. The presence of these rows can be found using a simple COUNT(*) on a table and seeing a discrepency between the two DBs. Finding the Id of the missing row(s), however, is non-trivial. 
 
 ## Solution
 This application queries both the Publisher and a given Subscriber, effectively performing a binary search to find the Subscriber row that does not exist at the Publisher.
@@ -25,7 +25,7 @@ i.e.
 To prompt replication of the row an innocuous update can then be performed 
 e.g. 
 ```
-UPDATE Table SET BitFlagColumn = BitFlagColumn WHERE Id = {id}
+UPDATE Table SET BitFlagColumn = BitFlagColumn WHERE Id = @Id
 ```
 
 ## Business Layer
